@@ -6,44 +6,49 @@ Author     : hectorsama, luis
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<jsp:include page='header.jsp'>
+
+<body id="page-top">
+    <jsp:include page='header.jsp'>
     <jsp:param name="title" value="Inicia Sesión"/>
 </jsp:include>
-<html>
-
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link rel="stylesheet" type="text/css" href="<c:url value="/css/login.css"/>"> 
         <title>Registro</title>
-    <hgroup>
-        <h1>Bienvenido</h1>
-    </hgroup>
-    <div class="login">
-        <form action="${pageContext.request.contextPath}/login" method="POST" class="login-form">
-            <p><input type="text" name="username" value="" placeholder="Correo"></p>
-            <p><input type="password" name="password" value="" placeholder="Contraseña"></p>
-            <p class="remember_me">
-            </p>
-            <button class="btn btn-primary tn-lg btn-block" id="Login" type="" style="width: 100%">Iniciar Sesión</button>
-        </form>
-    </div>
-<hgroup>
-  <h1>Bienvenido</h1>
-</hgroup>
-                <div class="login">
-                 <form action="${pageContext.request.contextPath}/login" method="POST" class="login-form">
-              <p><input type="text" name="username" value="" placeholder="Correo"></p>
-              <p><input type="password" name="password" value="" placeholder="Contraseña"></p>
-              <p class="remember_me">
-                <label>
-                  <input type="checkbox" name="remember_me" id="remember_me">
-                 ¡No me olvides!
-                </label>
-
-              </p>
-              <button class="btn btn-primary tn-lg btn-block" id="Login" type="" style="width: 100%">       Login        </button>
-              <!--<p class="submit"><input type="submit" name="commit" value="Login"></p>-->
-
-            </form>
+    </head>
+    <section id="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-12 text-center">
+            <h2 class="section-heading text-uppercase">Bienvenido</h2>
+            <h3 class="section-subheading text-muted">Unete a nuestra comunidad.</h3>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <form action="${pageContext.request.contextPath}/login" method="POST" class="login-form">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <input class="form-control" name="username" id="email" type="email" placeholder="Correo" data-validation-required-message="Por favor, acomplete el formulario">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="col-md-12">                    
+                  <div class="form-group">
+                    <input class="form-control" id="phone" name="password" type="password" placeholder="Contraseña" data-validation-required-message="Por favor, acomplete el formulario">
+                    <p class="help-block text-danger"></p>
+                  </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="col-lg-12 text-center">
+                  <div id="success"></div>
+                  <button id="sendMessageButton" class="btn btn-primary btn-xl text-uppercase" type="submit" id="Login">Iniciar Sesión</button>
+                </div>
               </div>
-</html>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+</body>

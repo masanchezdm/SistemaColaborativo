@@ -1,8 +1,15 @@
-<jsp:include page='header.jsp'>
-    <jsp:param name="title" value="Pagina Principal"/>
-</jsp:include>
-      <div class="android-be-together-section mdl-typography--text-center">
-          <div class="logo-font android-slogan">Bienvenido al sitio</div>
-          <div class="logo-font android-sub-slogan">Aquí encontraras lo mejor sobre asesorías ...</div>
-          </div>
-<%@include file='footer.jsp'%>
+ <body id="page-top">
+     <jsp:include page='header.jsp'>
+        <jsp:param name="title" value="Pagina Principal"/>
+    </jsp:include>
+    <header class="masthead">
+      <div class="container">
+        <div class="intro-text">
+          <div class="intro-lead-in">Bienvenido al sitio</div>
+          <div class="intro-heading text-uppercase">Aquí encontraras lo mejor sobre asesorías ...</div>
+          <a class="btn btn-primary btn-xl text-uppercase js-scroll-trigger" href="#services">Tell Me More</a>
+        </div>
+      </div>
+    </header>
+    <%--<%@include file='footer.jsp'%>--%>
+ </body>

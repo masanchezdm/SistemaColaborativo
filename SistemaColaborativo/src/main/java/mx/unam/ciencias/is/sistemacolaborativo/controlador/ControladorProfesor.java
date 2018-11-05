@@ -14,13 +14,11 @@ import java.util.Random;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
-import mx.unam.ciencias.is.sistemacolaborativo.mapeobd.Complementarios;
 import mx.unam.ciencias.is.sistemacolaborativo.mapeobd.Curriculum;
 import mx.unam.ciencias.is.sistemacolaborativo.mapeobd.Estudios;
 import mx.unam.ciencias.is.sistemacolaborativo.mapeobd.Experiencia;
 import mx.unam.ciencias.is.sistemacolaborativo.mapeobd.Profesor;
 import mx.unam.ciencias.is.sistemacolaborativo.mapeobd.Usuario;
-import mx.unam.ciencias.is.sistemacolaborativo.modelo.ComplementariosDAO;
 import mx.unam.ciencias.is.sistemacolaborativo.modelo.CurriculumDAO;
 import mx.unam.ciencias.is.sistemacolaborativo.modelo.EstudiosDAO;
 import mx.unam.ciencias.is.sistemacolaborativo.modelo.ExperienciaDAO;
@@ -48,8 +46,6 @@ public class ControladorProfesor {
     private ProfesorDAO profesor_bd;
     @Autowired
     private CurriculumDAO cv_bd;
-    @Autowired
-    private ComplementariosDAO complementarios_bd;
     @Autowired
     private ExperienciaDAO experiencia_bd;
     @Autowired
@@ -109,7 +105,16 @@ public class ControladorProfesor {
 
     @RequestMapping(value = "/profesor/curriculum", method = RequestMethod.GET)
     public ModelAndView curriculum(HttpServletRequest request, ModelMap model, Principal principal) {
-        return new ModelAndView("curriculum", model);
+        return new ModelAndView("vistaprofesor/curriculum", model);
+    }
+    
+    @RequestMapping(value = "/profesor/vermiperfilprofesor", method = RequestMethod.GET)
+    public String verMiPerfilProfesor(HttpServletRequest request, ModelMap model, Principal principal) {
+        Usuario usuario = usuario_bd.getUsuario(principal.getName());
+        Profesor p = profesor_bd.getProfesor(usuario);        
+        model.addAttribute("usuario", usuario);
+        model.addAttribute("profesor", p);
+        return "vistaprofesor/miPerfilProfesor";
     }
 
     @RequestMapping(value = "/activar-cuenta", method = RequestMethod.GET)
@@ -130,34 +135,8 @@ public class ControladorProfesor {
         Profesor p = profesor_bd.getProfesor(usuario);
         p.setCosto_x_hora(request.getParameter("costo"));
         p.setUsuario(usuario);
-        p.setHabilidades(request.getParameter("habilidades"));
         //varios niveles
         p.setEstaActivo(true);
-        String prim = request.getParameter("primaria");
-        String sec = request.getParameter("secundaria");
-        String bach = request.getParameter("bachillerato");
-        String uni = request.getParameter("licenciatura");
-        String pos = request.getParameter("posgrado");
-        String hab = "";
-        if (prim != null && prim.equals("on")) {
-            hab += "primaria,";
-        }
-        if (sec != null && sec.equals("on")) {
-            hab += "secundaria,";
-        }
-        if (bach != null && bach.equals("on")) {
-            hab += "bachillerato,";
-        }
-        if (uni != null && uni.equals("on")) {
-            hab += "licenciatura,";
-        }
-        if (pos != null && pos.equals("on")) {
-            hab += "posgrado,";
-        }
-        if (hab.length() != 0) {
-            hab = hab.substring(0, hab.length() - 1);
-        }
-        p.setNiveles_educativos(hab);
 
         try {
             Part file = request.getPart("file");
@@ -181,6 +160,7 @@ public class ControladorProfesor {
         String fecha_fin = request.getParameter("fecha_fin");
         String estudio = request.getParameter("estudios");
         es.setCurriculum(cv);
+        es.setEstudio(estudio);
         try {
             Date startDate = new SimpleDateFormat("yyyy-MM-dd").parse(fecha_inicio);
             Date finalDate = new SimpleDateFormat("yyyy-MM-dd").parse(fecha_fin);

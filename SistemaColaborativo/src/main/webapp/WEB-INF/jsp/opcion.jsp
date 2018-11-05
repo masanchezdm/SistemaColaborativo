@@ -7,10 +7,11 @@
 <style>
     header{
         text-align: center;
+        margin-top: 50px;
     }
 </style>
 <header>
-    <div align="center">
+    <div align="center" style="margin-top: 500px; " >
 <div class="android-more-section">
     <div class="android-section-title mdl-typography--display-1-color-contrast" >Elige el tipo de usuario</div>
     <div class="android-card-container mdl-grid" >
